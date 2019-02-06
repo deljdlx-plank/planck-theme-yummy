@@ -8,10 +8,10 @@
 <title>Plackeyblog - Accueil</title>
 
 <!-- Favicon -->
-<link rel="icon" href="theme/yummy/img/core-img/favicon.ico" />
+<link rel="icon" href="theme/planck-theme-yummy/img/core-img/favicon.ico" />
 
 <!-- Core Stylesheet -->
-<link href="theme/yummy/style.css" rel="stylesheet" />
+<link href="theme/planck-theme-yummy/style.css" rel="stylesheet" />
 
 <!-- Responsive CSS -->
-<link href="theme/yummy/css/responsive/responsive.css" rel="stylesheet" />
+<link href="theme/planck-theme-yummy/css/responsive/responsive.css" rel="stylesheet" />
