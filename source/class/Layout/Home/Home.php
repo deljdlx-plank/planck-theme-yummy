@@ -3,11 +3,15 @@
 namespace Planck\Theme\Yummy\Layout;
 
 
+use Planck\Model\Dataset;
+
 class Home extends Main
 {
 
     public function __construct()
     {
+
+
         parent::__construct();
     }
 
@@ -31,12 +35,21 @@ class Home extends Main
 
         $articles = $this->getVariable('articles');
 
+
+        if(!$articles instanceof Dataset) {
+            return;
+        }
+
+        if(!$articles->length()) {
+            return;
+        }
+
         $remainingArticles = $articles->length();
         $currentIndex = 0;
         $article = $articles[0];
 
 
-        $component = new \Planck\Theme\Yummy\Component\PostThumbnail('template-03.php');
+        $component = new \Planck\Theme\Yummy\Component\PostThumbnail('big.php');
         $component->setVariable('article', $article);
         $this->registerComponent($component, '#article-main');
         $currentIndex++;

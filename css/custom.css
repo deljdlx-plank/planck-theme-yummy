@@ -1,0 +1,27 @@
+.post-thumb {
+    height: 250px;
+}
+
+.post-thumb.big {
+    height: 500px;
+}
+
+
+.post-thumb a {
+    display: block;
+    border-radius: 16px;
+    height: 100%;
+    background-size: cover;
+}
+
+.post-thumb img
+{
+    height:100%;
+}
+
+.post-thumb a img {
+
+    display: none;
+
+
+}

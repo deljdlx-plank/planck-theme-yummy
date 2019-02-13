@@ -3,12 +3,48 @@
 namespace Planck\Theme\Yummy\Layout;
 
 
+
+use Planck\Extension\FrontVendor\Package\Bootstrap;
+use Planck\Extension\FrontVendor\Package\SyntaxHighlighter;
+use Planck\Theme\Yummy\Component\Header;
+use Planck\Theme\Yummy\Component\SideBar;
+
+
+
 class Main extends \Planck\View\Layout
 {
+
+
+    protected $sideBar;
+    protected $header;
+
 
     public function __construct()
     {
         parent::__construct();
+        $this->sideBar = new SideBar();
+        $this->header = new Header();
+
+        $this->addFrontPackage(
+            new SyntaxHighlighter()
+        );
+
+        $this->addFrontPackage(
+            new Bootstrap()
+        );
+
+
+    }
+
+
+
+
+
+
+
+    public function getSideBar()
+    {
+        return $this->sideBar;
     }
 
 
@@ -30,6 +66,48 @@ class Main extends \Planck\View\Layout
     {
         $html = $this->obInclude(__DIR__.'/template.php', $this->getVariables());
         $this->setHTML($html, true);
+
+
+
+
+        $about = new \Planck\Theme\Yummy\Component\About();
+        $sideBar = $this->getSideBar();
+        $sideBar->build();
+        $sideBar->getDom()->find('.top')->html($about);
+
+
+        $this->registerComponent($this->sideBar, '#sidebar');
+
+
+
+        $navigationEntity = $this->getApplication()->getModelEntity(\Planck\Extension\Navigation\Model\Entity\Container::class);
+        $navigationEntity->loadBy('qname', 'main-menu');
+
+        /*
+        $navigationDescriptor = $navigationEntity->getDescriptor();
+        $navigation = new Container();
+        $navigation->loadByDescriptor($navigationDescriptor);
+        */
+
+        $navigation = $navigationEntity->getContainer();
+
+
+
+        $menu = new \Planck\Theme\Yummy\Component\Navigation();
+        $menu->loadFromContainer($navigation);
+
+
+
+        $this->header->getDom()->find('.navbar-placeholder')->html(
+            $menu
+        );
+
+        $this->getDom()->find('body')->prepend($this->header->getDom());
+
+
+
+
+
         parent::build();
     }
 

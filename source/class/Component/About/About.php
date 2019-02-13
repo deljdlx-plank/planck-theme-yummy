@@ -5,6 +5,9 @@ namespace Planck\Theme\Yummy\Component;
 
 
 
+use Planck\Extension\Content\Model\Entity\Article;
+use Planck\Model\Exception\DoesNotExist;
+
 class About extends \Planck\View\Component
 {
 
@@ -14,16 +17,28 @@ class About extends \Planck\View\Component
 
         parent::__construct();
 
+        $html = $this->obInclude(__DIR__.'/template.php');
+        $this->dom->html($html, true);
 
-        if($template == null) {
-            $html = $this->obInclude(__DIR__.'/template-default.php');
+
+        $article = $this->getApplication()->getModelEntity(Article::class);
+
+        try {
+            $article->loadBy('qname', 'presentation');
+
+            $this->dom->find('.about-title')->html($article->getValue('title'));
+            $this->dom->find('.about-content')->html($article->getValue('html'));
+            $this->dom->find('.about-image')->html(
+                '<img src="'.$article->getImage()->getValue('url').'"/>'
+            );
+
         }
-        else {
-            $html = $this->obInclude(__DIR__.'/'.$template);
+        catch(DoesNotExist $exception) {
+            //$article->setValue('title', 'El Biniou')
         }
 
-        $this->dom->html($html);
-        //return;
+
+
     }
 
 

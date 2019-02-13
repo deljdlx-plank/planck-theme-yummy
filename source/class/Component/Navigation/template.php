@@ -3,6 +3,8 @@
     <!-- Menu Area Start -->
     <div class="collapse navbar-collapse justify-content-center" id="yummyfood-footer-nav">
         <ul class="navbar-nav">
+
+            <!--
             <li class="nav-item active">
                 <a class="nav-link" href="theme/yummy/#">Home <span class="sr-only">(current)</span></a>
             </li>
@@ -21,6 +23,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="theme/yummy/#">Contact</a>
             </li>
+            //-->
         </ul>
     </div>
 </nav>
