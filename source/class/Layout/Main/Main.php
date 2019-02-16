@@ -102,7 +102,7 @@ class Main extends \Planck\View\Layout
             $menu
         );
 
-        $this->getDom()->find('body')->prepend($this->header->getDom());
+        $this->dom->find('body')->prepend($this->header->getDom());
 
 
 
