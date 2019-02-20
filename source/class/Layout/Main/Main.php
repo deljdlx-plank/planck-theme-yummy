@@ -4,6 +4,7 @@ namespace Planck\Theme\Yummy\Layout;
 
 
 
+use Planck\Exception;
 use Planck\Extension\FrontVendor\Package\Bootstrap;
 use Planck\Extension\FrontVendor\Package\SyntaxHighlighter;
 use Planck\Theme\Yummy\Component\Header;
@@ -81,26 +82,27 @@ class Main extends \Planck\View\Layout
 
 
         $navigationEntity = $this->getApplication()->getModelEntity(\Planck\Extension\Navigation\Model\Entity\Container::class);
-        $navigationEntity->loadBy('qname', 'main-menu');
-
-        /*
-        $navigationDescriptor = $navigationEntity->getDescriptor();
-        $navigation = new Container();
-        $navigation->loadByDescriptor($navigationDescriptor);
-        */
-
-        $navigation = $navigationEntity->getContainer();
+        try {
+            $navigationEntity->loadBy('qname', 'main-menu');
+            $navigation = $navigationEntity->getContainer();
+            $menu = new \Planck\Theme\Yummy\Component\Navigation();
+            $menu->loadFromContainer($navigation);
 
 
 
-        $menu = new \Planck\Theme\Yummy\Component\Navigation();
-        $menu->loadFromContainer($navigation);
+            $this->header->getDom()->find('.navbar-placeholder')->html(
+                $menu
+            );
+        }
+        catch(Exception $exception) {
+            /**
+             * @todo silent catch - correct this
+             */
+        }
 
 
 
-        $this->header->getDom()->find('.navbar-placeholder')->html(
-            $menu
-        );
+
 
         $this->dom->find('body')->prepend($this->header->getDom());
 
