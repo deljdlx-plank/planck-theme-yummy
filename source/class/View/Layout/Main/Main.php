@@ -1,6 +1,6 @@
 <?php
 
-namespace Planck\Theme\Yummy\Layout;
+namespace Planck\Theme\Yummy\View\Layout;
 
 
 
