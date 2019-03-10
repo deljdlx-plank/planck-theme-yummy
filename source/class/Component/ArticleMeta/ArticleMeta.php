@@ -22,27 +22,28 @@ class ArticleMeta extends \Planck\View\Component
         if($this->variableExists('article')) {
 
 
-
             $url = $this->getApplication()->buildRoute('author', array($this->article->getAuthor()));
-            $this->dom->find('.post-author')->html(
-                '<a href="'.$url.'">Par '.$this->article->getAuthor()->getName().'</a>'
-            );
+
+                        $this->dom->find('.post-author')->html(
+                            '<a href="'.$url.'">Par '.$this->article->getAuthor()->getName().'</a>'
+                        );
 
 
-            $url = $this->getApplication()->buildRoute('date', array($this->article->getValue('creation_date')));
-            $this->dom->find('.post-date')->html(
-                '<a href="'.$url.'">'.\Planck\Helper\Date::formatDatetime($this->article->getValue('creation_date')).'</a>'
-            );
 
 
-            if($this->article->hasCategory()) {
-                $category = $this->article->getCategory();
-                $url = $this->getApplication()->buildRoute('category', array($category));
-                $this->dom->find('.post-category')->html(
-                    '<a href="'.$url.'">'.$category->getValue('name').'</a>'
-                );
-            }
+                        $url = $this->getApplication()->buildRoute('date', array($this->article->getValue('creation_date')));
+                        $this->dom->find('.post-date')->html(
+                            '<a href="'.$url.'">'.\Planck\Helper\Date::formatDatetime($this->article->getValue('creation_date')).'</a>'
+                        );
 
+
+                        if($this->article->hasCategory()) {
+                            $category = $this->article->getCategory();
+                            $url = $this->getApplication()->buildRoute('category', array($category));
+                            $this->dom->find('.post-category')->html(
+                                '<a href="'.$url.'">'.$category->getValue('name').'</a>'
+                            );
+                        }
 
         }
 
